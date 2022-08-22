@@ -1,41 +1,44 @@
-<html>
+<?= $this->extend('layout/template'); ?>
 
-<head>
-    <title>Tutorial Login Dan Register</title>
-</head>
-
-<body>
-    <?php
+<?= $this->section('content'); ?>
+<?php
     $session = session();
     $login = $session->getFlashdata('login');
     $username = $session->getFlashdata('username');
     $password = $session->getFlashdata('password');
     ?>
 
-    <h5>Login</h5>
 
-    <?php if ($username) { ?>
-        <p style="color:red"><?php echo $username ?></p>
-    <?php } ?>
 
-    <?php if ($password) { ?>
-        <p style="color:red"><?php echo $password ?></p>
-    <?php } ?>
+<div class="container w-50 justify-content-center d-flex">
+    <div class="position-absolute top-0 w-100 bg-warning half-circle">
 
-    <?php if ($login) { ?>
-        <p style="color:green"><?php echo $login ?></p>
-    <?php } ?>
-
-    <form method="post" action="/auth/valid_login">
-        Username: <br>
-        <input type="text" name="username" required><br>
-        Password: <br>
-        <input type="password" name="password" required><br>
-        <button type="submit" name="login">Login</button>
-    </form>
-    <p>
-        <a href="/auth/register">Belum punya akun?</a>
-    </p>
-</body>
-
-</html>
+    </div>
+    <div class="card px-5 py-4 mt-5">
+        <h3 class="text-center">Login</h3>
+        <hr>
+        <?php if ($password) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $password; ?>
+        </div>
+        <?php } ?>
+        <?php if ($username) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $username; ?>
+        </div>
+        <?php } ?>
+        <?php if ($login) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $login; ?>
+        </div>
+        <?php } ?>
+        <form method="post" action="/auth/valid_login">
+            <input type="text" name="username" class="form-control mb-3" id="userInput" placeholder="Username" required>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <button type="submit" class="btn btn-success w-100 mt-5" name="login">Login</button>
+        </form>
+        <p class="text-secondary mt-2">Belum punya akun? Ayo <a href="/auth/register" class="link-primary">Daftar</a>
+        </p>
+    </div>
+</div>
+<?= $this->endSection(); ?>
