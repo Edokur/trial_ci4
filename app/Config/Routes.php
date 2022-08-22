@@ -44,6 +44,7 @@ $routes->add('/auth/valid_register', 'Auth::valid_register');
 $routes->add('/auth/valid_login', 'Auth::valid_login');
 $routes->add('/auth/logout', 'Auth::logout');
 $routes->get('/user', 'User::index');
+$routes->get('/admin', 'Admin::index');
 
 /*
  * --------------------------------------------------------------------
