@@ -8,7 +8,7 @@ class Auth extends BaseController
 {
     public function __construct()
     {
-        //membuat user model untuk konek ke database 
+        //membuat user model untuk konek ke database
         $this->userModel = new UserModel();
 
         //meload validation
@@ -21,7 +21,7 @@ class Auth extends BaseController
     public function login()
     {
         $data = [
-            'title' => 'Login' 
+            'title' => 'Login'
         ];
         return view('auth/login', $data);
     }
@@ -29,7 +29,7 @@ class Auth extends BaseController
     public function register()
     {
         $data = [
-            'title' => 'Register' 
+            'title' => 'Register'
         ];
         return view('auth/register', $data);
     }
@@ -44,7 +44,7 @@ class Auth extends BaseController
 
         if ($errors) {
             session()->setFlashdata('error', $errors);
-            return redirect()->to('/auth/register');
+            return redirect()->to(base_url('/auth/register'));
         }
 
         $salt = uniqid('', true);
@@ -59,7 +59,7 @@ class Auth extends BaseController
         ]);
 
         session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan login');
-        return redirect()->to('/auth/login');
+        return redirect()->to(base_url('/auth/login'));
     }
 
     public function valid_login()
@@ -71,7 +71,7 @@ class Auth extends BaseController
         if ($user) {
             if ($user['password'] != md5($data['password']) . $user['salt']) {
                 session()->setFlashdata('password', 'Password salah');
-                return redirect()->to('/auth/login');
+                return redirect()->to(base_url('/auth/login'));
             } else {
                 $sessLogin = [
                     'isLogin' => true,
@@ -79,17 +79,17 @@ class Auth extends BaseController
                     'role' => $user['role']
                 ];
                 $this->session->set($sessLogin);
-                return redirect()->to('/user');
+                return redirect()->to(base_url('/user'));
             }
         } else {
             session()->setFlashdata('username', 'Username tidak ditemukan');
-            return redirect()->to('/auth/login');
+            return redirect()->to(base_url('/auth/login'));
         }
     }
 
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/auth/login');
+        return redirect()->to(base_url('/auth/login'));
     }
 }
