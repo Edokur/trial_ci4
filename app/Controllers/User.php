@@ -1,21 +1,20 @@
 <?php
 
 namespace App\Controllers;
+use App\Controllers\BaseController;
 
 class User extends BaseController
 {
     public function __construct()
     {
-        $this->session = session();
+        $role = session()->get('role');
+        if ($role != "2") {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
     public function index()
     {
-        //cek apakah ada session bernama isLogin
-        if (!$this->session->has('isLogin')) {
-            return redirect()->to('/auth/login');
-        }
-
         return view('user/index');
     }
 }

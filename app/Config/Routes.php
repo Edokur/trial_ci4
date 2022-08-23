@@ -37,14 +37,18 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');
 
-//Login
-$routes->get('/auth/login', 'Auth::login');
-$routes->get('/auth/register', 'Auth::register');
-$routes->add('/auth/valid_register', 'Auth::valid_register');
-$routes->add('/auth/valid_login', 'Auth::valid_login');
-$routes->add('/auth/logout', 'Auth::logout');
-$routes->get('/user', 'User::index');
-$routes->get('/admin', 'Admin::index');
+//Auth Group
+$routes->group('auth', static function ($routes) {
+    $routes->get('login', 'Auth::login', ["filter" => "no.auth"]);
+    $routes->get('register', 'Auth::register', ["filter" => "no.auth"]);
+    $routes->add('valid_register', 'Auth::valid_register', ["filter" => "no.auth"]);
+    $routes->add('valid_login', 'Auth::valid_login', ["filter" => "no.auth"]);
+    $routes->add('logout', 'Auth::logout', ["filter" => "auth"]);
+});
+
+//User
+$routes->get('/user', 'User::index', ["filter" => "auth"]);
+$routes->get('/admin', 'Admin::index', ["filter" => "auth"]);
 
 /*
  * --------------------------------------------------------------------
