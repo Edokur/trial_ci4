@@ -24,6 +24,7 @@
 <body>
     <div id="app">
         <div class="main-wrapper">
+            <!-- Navbar -->
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
                 <form class="form-inline mr-auto">
@@ -243,6 +244,8 @@
                     </li>
                 </ul>
             </nav>
+
+            <!-- Sidebar -->
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
@@ -990,6 +993,8 @@
                     </div>
                 </section>
             </div>
+
+            <!-- Footer -->
             <footer class="main-footer">
                 <div class="footer-left">
                     Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
