@@ -1,5 +1,6 @@
-<?= $this->extend('admin/templates/master') ?>
+<?= $this->extend('admin/layouts/master') ?>
 <?= $this->section('content') ?>
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -586,4 +587,5 @@
         </div>
     </section>
 </div>
+
 <?= $this->endSection() ?>

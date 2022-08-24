@@ -15,6 +15,6 @@ class User extends BaseController
 
     public function index()
     {
-        return view('user/index');
+        return view('user/home');
     }
 }

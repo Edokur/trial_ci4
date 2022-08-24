@@ -25,16 +25,16 @@
     <div id="app">
         <div class="main-wrapper">
             <!-- Navbar -->
-            <?= view('App\Views\admin\templates\navbar') ?>
+            <?= view('App\Views\admin\layouts\navbar') ?>
 
             <!-- Sidebar -->
-            <?= view('App\Views\admin\templates\sidebar') ?>
+            <?= view('App\Views\admin\layouts\sidebar') ?>
 
             <!-- Main Content -->
             <?= $this->renderSection('content') ?>
 
             <!-- Footer -->
-            <?= view('App\Views\admin\templates\footer') ?>
+            <?= view('App\Views\admin\layouts\footer') ?>
         </div>
     </div>
 
