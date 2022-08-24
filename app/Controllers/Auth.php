@@ -79,7 +79,12 @@ class Auth extends BaseController
                     'role' => $user['role']
                 ];
                 $this->session->set($sessLogin);
-                return redirect()->to(base_url('/user'));
+
+                if ($sessLogin['role'] == '1') {
+                  return redirect()->to(base_url('/admin'));
+                } else {
+                  return redirect()->to(base_url('/user'));
+                }
             }
         } else {
             session()->setFlashdata('username', 'Username tidak ditemukan');
