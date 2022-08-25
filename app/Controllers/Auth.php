@@ -3,9 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\API\ResponseTrait;
 
 class Auth extends BaseController
 {
+    use ResponseTrait;
+
     public function __construct()
     {
         //membuat user model untuk konek ke database
@@ -70,8 +73,7 @@ class Auth extends BaseController
 
         if ($user) {
             if ($user['password'] != md5($data['password']) . $user['salt']) {
-                session()->setFlashdata('password', 'Password salah');
-                return redirect()->to(base_url('/auth/login'));
+                return $this->failValidationError('Password yang anda masukan salah');
             } else {
                 $sessLogin = [
                     'isLogin' => true,
@@ -81,20 +83,26 @@ class Auth extends BaseController
                 $this->session->set($sessLogin);
 
                 if ($sessLogin['role'] == '1') {
-                  return redirect()->to(base_url('/admin'));
+                    $url = base_url('/admin');
                 } else {
-                  return redirect()->to(base_url('/user'));
+                    $url = base_url('/');
                 }
+
+                return $this->respond($url, 200);
             }
-        } else {
-            session()->setFlashdata('username', 'Username tidak ditemukan');
-            return redirect()->to(base_url('/auth/login'));
         }
+
+        return $this->failNotFound('Username tidak ditemukan');
     }
 
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to(base_url('/auth/login'));
+
+        if (session()->get('role') == '1') {
+            return redirect()->to(base_url('/auth/login'));
+        } else {
+            return redirect()->to(base_url('/'));
+        }
     }
 }

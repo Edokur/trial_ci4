@@ -41,14 +41,18 @@ $routes->set404Override();
 $routes->group('auth', static function ($routes) {
     $routes->get('login', 'Auth::login', ["filter" => "no.auth"]);
     $routes->get('register', 'Auth::register', ["filter" => "no.auth"]);
-    $routes->add('valid_register', 'Auth::valid_register', ["filter" => "no.auth"]);
-    $routes->add('valid_login', 'Auth::valid_login', ["filter" => "no.auth"]);
-    $routes->add('logout', 'Auth::logout', ["filter" => "auth"]);
+    $routes->post('valid_register', 'Auth::valid_register', ["filter" => "no.auth"]);
+    $routes->post('valid_login', 'Auth::valid_login', ["filter" => "no.auth"]);
+    $routes->match(['get', 'post'], 'logout', 'Auth::logout', ["filter" => "auth"]);
 });
 
 //User
-$routes->get('/user', 'User::index', ["filter" => "auth"]);
-$routes->get('/admin', 'Admin::index', ["filter" => "auth"]);
+$routes->get('/', 'User\Home::index');
+
+//Admin Group
+$routes->group('admin', ["filter" => "auth"], static function ($routes) {
+    $routes->get('/', 'Admin\Dashboard::index');
+});
 
 /*
  * --------------------------------------------------------------------

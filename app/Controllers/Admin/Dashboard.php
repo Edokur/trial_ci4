@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 
-class User extends BaseController
+class Dashboard extends BaseController
 {
     public function __construct()
     {
         $role = session()->get('role');
-        if ($role != "2") {
+        if ($role != "1") {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 
     public function index()
     {
-        return view('user/home');
+        return view('admin/dashboard');
     }
 }
